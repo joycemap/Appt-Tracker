@@ -11,7 +11,8 @@ IF NOT EXISTS appointment
 (
     Id SERIAL PRIMARY KEY,
     Date DATE,
-    Time TIME,
+    Time TIME
+(5),
     Location TEXT,
     Doctor TEXT,
     Notes TEXT
