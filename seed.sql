@@ -10,4 +10,4 @@ INSERT INTO appointment
 VALUES('2020-03-31', '09:00', 'CGH Sleep Clinic', 'Dr. HS Wong', 'Follow up appointment');
 INSERT INTO appointment
     (Date, Time, Location, Doctor, Notes)
-VALUES('2020-04-28', '08:00', 'NUH Digestive Clinic', 'Dr. LL Lim', 'Blood test, Fast for 8 houra');
+VALUES('2020-04-28', '08:00', 'NUH Digestive Clinic', 'Dr. LL Lim', 'Blood test, Fast for 8 hours');

@@ -11,6 +11,7 @@ IF NOT EXISTS appointment
 (
     Id SERIAL PRIMARY KEY,
     Date DATE,
+    to_char TEXT,
     Time TIME
 (5),
     Location TEXT,
