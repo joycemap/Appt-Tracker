@@ -1,4 +1,5 @@
 var React = require("react");
+const Layout = require("./Layout.jsx");
 
 class Register extends React.Component {
   render() {
@@ -22,8 +23,9 @@ class Register extends React.Component {
         </head>
         <body>
           <div>
-            <h1>Register for Appointment Tracker Here!</h1>
-            <form action="/register" method="POST">
+            <h1>Register Here!</h1>
+            <h2>Appointment Tracker</h2>
+            <form action="/users" method="POST">
               <p>
                 Name <input name="name" required />
               </p>
@@ -34,7 +36,7 @@ class Register extends React.Component {
                 <input
                   className="btn btn-dark btn-lg btn-block"
                   type="submit"
-                  value="Click Here"
+                  value="Register"
                 />
               </div>
             </form>

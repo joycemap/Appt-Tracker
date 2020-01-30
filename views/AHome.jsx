@@ -1,6 +1,6 @@
 var React = require("react");
-
-class Login extends React.Component {
+const Layout = require("./Layout.jsx");
+class Home extends React.Component {
   render() {
     return (
       <html>
@@ -21,7 +21,7 @@ class Login extends React.Component {
         <body>
           <div>
             <h1>Log in to see appointments</h1>
-            <form action="/login" method="POST">
+            <form action="/users/logincheck" method="POST">
               <p>
                 Name <input name="name" required />
               </p>
@@ -33,8 +33,15 @@ class Login extends React.Component {
                 <input
                   className="btn btn-dark btn-lg btn-block"
                   type="submit"
-                  value="Click Here"
+                  value="Click Here to log in"
                 />
+                <a
+                  class="btn btn-danger btn-lg btn-block"
+                  href="/register"
+                  role="button"
+                >
+                  New User? Click here to register
+                </a>
               </div>
             </form>
           </div>
@@ -59,4 +66,4 @@ class Login extends React.Component {
   }
 }
 
-module.exports = Login;
+module.exports = Home;

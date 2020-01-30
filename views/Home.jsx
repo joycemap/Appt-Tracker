@@ -1,5 +1,5 @@
 var React = require("react");
-
+const Layout = require("./Layout.jsx");
 class Home extends React.Component {
   render() {
     return (
@@ -21,7 +21,7 @@ class Home extends React.Component {
           <link rel="stylesheet" href="/custom.css" />
         </head>
         <body>
-          <h1>Welcome!</h1>
+          <h1>Appointment Tracker - See all your appointments in one spot</h1>
           <script
             src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
