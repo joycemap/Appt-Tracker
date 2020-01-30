@@ -34,6 +34,7 @@ const reactEngine = require('express-react-views').createEngine();
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jsx');
 app.engine('jsx', reactEngine);
+app.use(express.static(__dirname + '/public'));
 app.use(cookieParser());
 /**
  * ===================================
@@ -42,7 +43,7 @@ app.use(cookieParser());
  */
 /**
  * ===================================
- * HELLO WORLD
+ * HELLO 
  * ===================================
  */
 app.get('/', (request, response) => {
@@ -102,12 +103,12 @@ app.get("/artists/:id", (request, response) => {
 });
 /**
  * ===================================
- * CREATE A NEW PLAYLIST
+ * CREATE A NEW APPT LIST
  * ===================================
  */
-app.get('/playlist/new', (request, response) => {
+app.get('/applist/new', (request, response) => {
     // respond with HTML page with form to create new artist
-    response.render('playlistNew');
+    response.render('applistNew');
 });
 app.post('/playlist', (request, response) => {
     let insertQueryText = 'INSERT INTO playlist (name) VALUES ($1) RETURNING *';
@@ -222,7 +223,7 @@ app.get('/playlist/:id', (request, response) => {
  * ===================================
  */
 app.get('/register', (request, response) => {
-    response.render('Register');
+    response.render('ARegister');
 });
 
 app.post('/register', (request, response) => {
@@ -251,7 +252,7 @@ app.post('/register', (request, response) => {
             response.cookie('username', request.body.name);
             response.cookie('registered', hashedCookie);
             response.cookie('userId', user_id);
-            response.redirect('/register');
+            response.redirect('/');
         }
     });
 });
@@ -263,7 +264,7 @@ app.post('/register', (request, response) => {
  */
 
 app.get('/login', (request, response) => {
-    response.render('Login');
+    response.render('ALogin');
 });
 
 
@@ -300,7 +301,7 @@ app.post('/login', (request, response) => {
                     response.cookie('loggedIn', hashedCookie);
                     response.cookie('userId', user_id);
                     // response.send( result.rows[0] );
-                    response.render('home')
+                    response.render('Home')
                 } else {
                     response.send("Not verified. Please re-enter your Username and password.")
                 }

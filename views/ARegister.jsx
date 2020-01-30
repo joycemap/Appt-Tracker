@@ -1,6 +1,6 @@
 var React = require("react");
 
-class Login extends React.Component {
+class Register extends React.Component {
   render() {
     return (
       <html>
@@ -10,25 +10,26 @@ class Login extends React.Component {
             name="viewport"
             content="width=device-width, initial-scale=1.0"
           />
+
           <link
             rel="stylesheet"
             href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
             integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
             crossOrigin="anonymous"
           />
+
           <link rel="stylesheet" href="/custom.css" />
         </head>
         <body>
           <div>
-            <h1>Log in to see appointments</h1>
-            <form action="/login" method="POST">
+            <h1>Register for Appointment Tracker Here!</h1>
+            <form action="/register" method="POST">
               <p>
                 Name <input name="name" required />
               </p>
               <p>
                 Password <input type="password" name="password" required />
               </p>
-              <div class="form-actions"></div>
               <div>
                 <input
                   className="btn btn-dark btn-lg btn-block"
@@ -59,4 +60,4 @@ class Login extends React.Component {
   }
 }
 
-module.exports = Login;
+module.exports = Register;
