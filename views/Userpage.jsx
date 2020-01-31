@@ -31,7 +31,7 @@ class Oneappt extends React.Component {
             </p>
             <p>
               <a
-                class="btn btn-warning"
+                class="btn btn-primary"
                 href={`/appt/single/delete/${this.props.apptData.id}`}
               >
                 Delete this appointment
@@ -65,6 +65,9 @@ class Userpage extends React.Component {
               value="Add appointment"
             />
           </form>
+          <a href="/logout">
+            <button class="btn btn-info">Logout</button>
+          </a>
         </Layout>
       );
     }
@@ -83,6 +86,9 @@ class Userpage extends React.Component {
           <div class="item-container">{itemElements}</div>
           <a href="/appt/new">
             <button class="btn btn-info">Add appointment</button>
+          </a>
+          <a href="/logout">
+            <button class="btn btn-info">Logout</button>
           </a>
         </Layout>
       );

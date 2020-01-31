@@ -53,13 +53,13 @@ app.get('/', (request, response) => {
         let userId = request.cookies['User'];
         response.redirect(`/appt/${userId}`);
     } else {
-        response.render('AHome');
+        response.render('Home');
     }
 });
 
 /**
  * ===================================
- * CREATE A NEW APPOINTMENT
+ * CREATE A NEW APPOINTMENT FOR LOGGED IN USER
  * ===================================
  */
 app.get('/appt/new', (request, response) => {
@@ -118,7 +118,6 @@ app.get('/appt/:id', (request, response) => {
         var cookieLogin = (sha256("you are in" + request.cookies["User"] + SALT) === request.cookies["loggedin"]) ? true : false;
         var cookieUserId = request.cookies['User'];
         console.log("get cookies user id: " + cookieUserId);
-        // console.log(response.body);
 
         const queryString = "SELECT appointment.id AS appt_date,appointment.Time,appointment.Location,appointment.Doctor,appointment.Notes,appointment.user_id,users.name FROM appointment INNER JOIN users ON (users.id = appointment.user_id) WHERE appointment.user_id = $1 ORDER BY appointment.Date ASC";
 
@@ -149,30 +148,6 @@ app.get('/appt/:id', (request, response) => {
                         }
                     })
                 }
-                // else {
-                // //find out how long to next pill (eg: in 2 hours)
-                // for (let i = 0; i < res.rows.length; i++) {
-                //     let timeNextPill = res.rows[i].start_time;
-                //     res.rows[i]['nextTime'] = moment(timeNextPill).toNow(true);
-                // }
-
-                // //find shortest time to next pill
-                // let min = res.rows[0].start_time, max = res.rows[0].start_time;
-                // for (let i = 0, len = res.rows.length; i < len; i++) {
-                //     let v = res.rows[i].start_time;
-                //     min = (v < min) ? v : min;
-                //     max = (v > max) ? v : max;
-                // }
-
-
-                // let anylogdata = true;
-                // const data = {
-                //     apptData: res.rows,
-                //     cookieUserId: cookieUserId,
-                //     cookieLogin: cookieLogin,
-                //     anylogdata: anylogdata
-                // }
-                // response.render('Userpage', data);
             }
         })
     }
@@ -183,7 +158,64 @@ app.get('/appt/:id', (request, response) => {
     }
 });
 
+/**
+ * ===================================
+ * EDIT APPOINTMENTS FOR LOGGED IN USER
+ * ===================================
+ */
+app.get('/appt/edit/:id', (request, response) => {
+    if (sha256("you are in" + request.cookies["User"] + SALT) === request.cookies["loggedin"]) {
+        let cookieLogin = (sha256("you are in" + request.cookies["User"] + SALT) === request.cookies["loggedin"]) ? true : false;
+        let cookieUserId = request.cookies['User'];
+        var inputId = parseInt(request.params.id);
+        let queryString = "SELECT * FROM appointment WHERE id = ($1)";
+        var idVal = [inputId];
+        pool.query(queryString, idVal, (err, res) => {
+            if (err) {
+                console.log("query error", err.message);
+            } else {
+                if (res.rows[0] === undefined) {
+                    response.send("Please add an appointment first.");
+                }
+                else {
 
+                    let anylogdata = true;
+                    const data = {
+                        apptData: res.rows[0],
+                        cookieLogin: cookieLogin,
+                        cookieUserId: cookieUserId,
+                        anylogdata: anylogdata
+                    };
+                    // console.log(data);
+                    response.render('Edit', data);
+                }
+            }
+        });
+    } else {
+        response.clearCookie('User');
+        response.clearCookie('loggedin');
+        response.redirect('/');
+    }
+});
+
+//Update database with edits for an individual appointment
+app.put('/appt/edit/:id', (request, response) => {
+    console.log("inside individual edit put");
+    var inputId = parseInt(request.params.id);
+    var idVal = [inputId];
+    var newAppt = request.body;
+
+    let queryString = "UPDATE appointment SET Date=($1), Time=($2), Location=($3), Doctor=($4), Notes=($5) WHERE id = ($6)";
+    let values = [appointment.Date, appointment.Time, appointment.Location, appointment.Doctor, appointment.Notes, appointment.id];
+
+    pool.query(queryString, values, (err, response) => {
+        if (err) {
+            console.log("query error", err.message);
+        } else {
+            response.redirect(`/appt/${appointment.user_id}`);
+        }
+    });
+});
 
 /**
  * ===================================
@@ -230,6 +262,9 @@ app.get('/logout', (request, response) => {
     response.redirect('/');
 });
 
+app.get('/register', (request, response) => {
+    response.render('Register');
+});
 
 /**
  * ===================================
@@ -269,69 +304,8 @@ app.post('/users/logincheck', (request, response) => {
     });
 });
 
-app.get('/register', (request, response) => {
-    response.render('ARegister');
-});
+// 
 
-
-
-
-/**
- * ===================================
- * LOGIN
- * ===================================
- */
-
-// app.get('/login', (request, response) => {
-//     response.render('ALogin');
-// });
-
-
-// app.post('/login', (request, response) => {
-
-//     let query = "SELECT * FROM users WHERE name='" + request.body.name + "'";
-
-//     console.log("LOGIN: " + query)
-
-//     pool.query(query, (err, result) => {
-
-//         if (err) {
-//             console.log("Login error", err);
-//             response.status(500).send("error")
-
-//         } else {
-
-//             if (result.rows.length === 0) {
-//                 response.send("NO RESULT");
-//             } else {
-
-
-//                 // hash the request, if its the same as db
-//                 let hashedRequestPw = sha256(request.body.password + SALT);
-
-//                 // if the password in the db matches the one in the login form
-//                 if (result.rows[0].password === hashedRequestPw) {
-
-//                     let user_id = result.rows[0].id;
-//                     let hashedCookie = sha256(SALT + user_id);
-
-
-//                     // response.cookie('loggedIn', true);
-//                     response.cookie('loggedIn', hashedCookie);
-//                     response.cookie('userId', user_id);
-//                     // response.send( result.rows[0] );
-//                     response.render('Home')
-//                 } else {
-//                     response.send("Not verified. Please re-enter your Username and password.")
-//                 }
-
-//             }
-
-//         }
-
-//     });
-
-// });
 
 /**
  * ===================================
@@ -339,54 +313,54 @@ app.get('/register', (request, response) => {
  * ===================================
  */
 
-app.get("/favorites/new", (request, response) => {
-    if (request.cookies.loggedIn !== undefined) {
-        let query = "SELECT * from songs";
-        pool.query(query, (err, result) => {
-            const data = {
-                songs: result.rows
-            };
-            response.render("Faveform", data);
-        });
-    } else {
-        response.send("Please log in first!")
-    }
-});
+// app.get("/favorites/new", (request, response) => {
+//     if (request.cookies.loggedIn !== undefined) {
+//         let query = "SELECT * from songs";
+//         pool.query(query, (err, result) => {
+//             const data = {
+//                 songs: result.rows
+//             };
+//             response.render("Faveform", data);
+//         });
+//     } else {
+//         response.send("Please log in first!")
+//     }
+// });
 
-app.get("/favorites", (request, response) => {
-    if (request.cookies.loggedIn === undefined) {
-        response.send("Please log in to view your favorites")
-    }
-    const userID = request.cookies.userID;
-    const values = [userID];
-    const query = `
-      SELECT songs.id, songs.title, songs.preview_link
-      FROM SONGS
-      INNER JOIN favorites
-      on (songs.id = favorites.song_id)
-      WHERE favorites.user_id = $1;`;
-    pool.query(query, values, (err, result) => {
-        const favorites = result.rows;
-        const data = {
-            favorites: favorites,
-            username: request.cookies.username
-        };
-        response.render("Faves", data);
-    });
-})
+// app.get("/favorites", (request, response) => {
+//     if (request.cookies.loggedIn === undefined) {
+//         response.send("Please log in to view your favorites")
+//     }
+//     const userID = request.cookies.userID;
+//     const values = [userID];
+//     const query = `
+//       SELECT songs.id, songs.title, songs.preview_link
+//       FROM SONGS
+//       INNER JOIN favorites
+//       on (songs.id = favorites.song_id)
+//       WHERE favorites.user_id = $1;`;
+//     pool.query(query, values, (err, result) => {
+//         const favorites = result.rows;
+//         const data = {
+//             favorites: favorites,
+//             username: request.cookies.username
+//         };
+//         response.render("Faves", data);
+//     });
+// })
 
-app.post("/favorites", (request, response) => {
-    const songId = request.body.song_id;
-    const userId = request.cookies.userID;
-    const values = [songId, userId];
-    const query = "INSERT into favorites (song_id, user_id) VALUES ($1, $2)";
-    pool.query(query, values, (err, result) => {
-        if (err) console.log(err);
-        else {
-            response.redirect("/");
-        }
-    });
-});
+// app.post("/favorites", (request, response) => {
+//     const songId = request.body.song_id;
+//     const userId = request.cookies.userID;
+//     const values = [songId, userId];
+//     const query = "INSERT into favorites (song_id, user_id) VALUES ($1, $2)";
+//     pool.query(query, values, (err, result) => {
+//         if (err) console.log(err);
+//         else {
+//             response.redirect("/");
+//         }
+//     });
+// });
 
 /**
  * ===================================

@@ -1,6 +1,7 @@
 var React = require("react");
 const Layout = require("./Layout.jsx");
-class Home extends React.Component {
+
+class Register extends React.Component {
   render() {
     return (
       <html>
@@ -10,39 +11,33 @@ class Home extends React.Component {
             name="viewport"
             content="width=device-width, initial-scale=1.0"
           />
+
           <link
             rel="stylesheet"
             href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
             integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
             crossOrigin="anonymous"
           />
+
           <link rel="stylesheet" href="/custom.css" />
         </head>
         <body>
           <div>
-            <h1>Appointment Tracker</h1>
-            <h2>Log in to see appointments</h2>
-            <form action="/users/logincheck" method="POST">
+            <h1>Register Here!</h1>
+            <h2>Appointment Tracker</h2>
+            <form action="/users" method="POST">
               <p>
                 Name <input name="name" required />
               </p>
               <p>
                 Password <input type="password" name="password" required />
               </p>
-              <div class="form-actions"></div>
               <div>
                 <input
                   className="btn btn-dark btn-lg btn-block"
                   type="submit"
-                  value="Click Here to log in"
+                  value="Register"
                 />
-                <a
-                  class="btn btn-danger btn-lg btn-block"
-                  href="/register"
-                  role="button"
-                >
-                  New User? Click here to register
-                </a>
               </div>
             </form>
           </div>
@@ -67,4 +62,4 @@ class Home extends React.Component {
   }
 }
 
-module.exports = Home;
+module.exports = Register;
