@@ -67,11 +67,9 @@ app.get('/appt/new', (request, response) => {
     if (sha256("you are in" + request.cookies["User"] + SALT) === request.cookies["loggedin"]) {
         let cookieLogin = (sha256("you are in" + request.cookies["User"] + SALT) === request.cookies["loggedin"]) ? true : false;
         let cookieUserId = request.cookies['User'];
-        let anylogdata = false;
         const data = {
             cookieLogin: cookieLogin,
             cookieUserId: cookieUserId,
-            anylogdata: anylogdata
         }
         response.render('New', data);
     } else {
@@ -115,14 +113,14 @@ app.post('/appt', (request, response) => {
  */
 app.get('/appt/:id', (request, response) => {
     if (sha256("you are in" + request.cookies["User"] + SALT) === request.cookies["loggedin"]) {
+
         var cookieLogin = (sha256("you are in" + request.cookies["User"] + SALT) === request.cookies["loggedin"]) ? true : false;
         var cookieUserId = request.cookies['User'];
         console.log("get cookies user id: " + cookieUserId);
 
-        const queryString = "SELECT appointment.id AS appt_date,appointment.Time,appointment.Location,appointment.Doctor,appointment.Notes,appointment.user_id,users.name FROM appointment INNER JOIN users ON (users.id = appointment.user_id) WHERE appointment.user_id = $1 ORDER BY appointment.Date ASC";
+        const queryString = "SELECT appointment.id, appointment.date,appointment.time,appointment.location,appointment.doctor,appointment.notes,appointment.user_id FROM appointment INNER JOIN users ON (users.id = appointment.user_id) WHERE appointment.user_id = $1 ORDER BY appointment.date ASC";
 
         const values = [parseInt(request.params.id)];
-
         pool.query(queryString, values, (err, res) => {
             if (err) {
                 console.log("query error", err.message);
@@ -130,40 +128,31 @@ app.get('/appt/:id', (request, response) => {
                 // console.log(res.rows);
                 if (res.rows[0] === undefined) {
                     console.log("user undefined: " + cookieUserId);
-                    const queryString = "SELECT name FROM users WHERE id = $1";
-                    const values = [parseInt(request.params.id)];
-                    let anylogdata = false;
-                    pool.query(queryString, values, (err, res) => {
-                        if (err) {
-                            console.log("query error", err.message);
-                        } else {
-                            console.log(res.rows);
-                            const data = {
-                                apptData: res.rows,
-                                cookieLogin: cookieLogin,
-                                cookieUserId: cookieUserId,
-                                anylogdata: anylogdata
-                            }
-                            response.render('Userpage', data);
-                        }
-                    })
+                    response.send("There are no appointments to display.")
+
+                } else {
+                    console.log(res.rows);
+                    const data = {
+                        apptData: res.rows,
+                        cookieLogin: cookieLogin,
+                        cookieUserId: cookieUserId,
+                    }
+                    response.render('Userpage', data);
                 }
             }
         })
-    }
-    else {
+    } else {
         response.clearCookie('User');
         response.clearCookie('loggedin');
         response.redirect('/');
     }
 });
-
 /**
  * ===================================
- * EDIT APPOINTMENTS FOR LOGGED IN USER
+ * EDIT SPECIFIED APPOINTMENT FOR LOGGED IN USER
  * ===================================
  */
-app.get('/appt/edit/:id', (request, response) => {
+app.get('/appt/:id/edit', (request, response) => {
     if (sha256("you are in" + request.cookies["User"] + SALT) === request.cookies["loggedin"]) {
         let cookieLogin = (sha256("you are in" + request.cookies["User"] + SALT) === request.cookies["loggedin"]) ? true : false;
         let cookieUserId = request.cookies['User'];
@@ -179,12 +168,10 @@ app.get('/appt/edit/:id', (request, response) => {
                 }
                 else {
 
-                    let anylogdata = true;
                     const data = {
                         apptData: res.rows[0],
                         cookieLogin: cookieLogin,
                         cookieUserId: cookieUserId,
-                        anylogdata: anylogdata
                     };
                     // console.log(data);
                     response.render('Edit', data);
@@ -198,14 +185,16 @@ app.get('/appt/edit/:id', (request, response) => {
     }
 });
 
-//Update database with edits for an individual appointment
-app.put('/appt/edit/:id', (request, response) => {
+//Update database with edits for a specified appointment
+
+app.put('/appt/:id', (request, response) => {
     console.log("inside individual edit put");
     var inputId = parseInt(request.params.id);
     var idVal = [inputId];
     var newAppt = request.body;
 
     let queryString = "UPDATE appointment SET Date=($1), Time=($2), Location=($3), Doctor=($4), Notes=($5) WHERE id = ($6)";
+
     let values = [appointment.Date, appointment.Time, appointment.Location, appointment.Doctor, appointment.Notes, appointment.id];
 
     pool.query(queryString, values, (err, response) => {
@@ -216,6 +205,60 @@ app.put('/appt/edit/:id', (request, response) => {
         }
     });
 });
+
+/**
+ * ===================================
+ * DELETE A SPECIFIED APPOINTMENT FOR LOGGED IN USER
+ * ===================================
+ */
+
+app.get('/appt/delete/:id', (request, response) => {
+
+    if (sha256("you are in" + request.cookies["User"] + SALT) === request.cookies["loggedin"]) {
+        let cookieLogin = (sha256("you are in" + request.cookies["User"] + SALT) === request.cookies["loggedin"]) ? true : false;
+        let cookieUserId = request.cookies['User'];
+        var inputId = parseInt(request.params.id);
+        let queryString = "SELECT * FROM appointment WHERE id = ($1)";
+        var idVal = [inputId];
+        pool.query(queryString, idVal, (err, res) => {
+            if (err) {
+                console.log("query error", err.message);
+            } else {
+                const data = {
+                    appointment: res.rows[0],
+                    cookieLogin: cookieLogin,
+                    cookieUserId: cookieUserId
+                };
+                response.render('Delete', data);
+            }
+        });
+    } else {
+        response.clearCookie('User');
+        response.clearCookie('loggedin');
+        response.redirect('/');
+    }
+
+});
+
+app.delete('/appt/:id', (request, response) => {
+    console.log("inside app delete");
+    var newAppt = request.body;
+    var inputId = parseInt(request.params.id);
+    //delete appointment
+    let queryString = "DELETE FROM appointment WHERE id = ($1)";
+
+    var idVal = [inputId];
+    console.log(idVal);
+    pool.query(queryString, idVal, (err, response) => {
+        if (err) {
+            console.log("query error", err.message);
+        } else {
+            //response.send('Yay! deleted!');
+            response.redirect(`/appt/${newAppt.user_id}`);
+        }
+    })
+});
+
 
 /**
  * ===================================
@@ -304,63 +347,9 @@ app.post('/users/logincheck', (request, response) => {
     });
 });
 
-// 
 
 
-/**
- * ===================================
- * FAVORITES NOTE - WIP Can't see Userid now
- * ===================================
- */
 
-// app.get("/favorites/new", (request, response) => {
-//     if (request.cookies.loggedIn !== undefined) {
-//         let query = "SELECT * from songs";
-//         pool.query(query, (err, result) => {
-//             const data = {
-//                 songs: result.rows
-//             };
-//             response.render("Faveform", data);
-//         });
-//     } else {
-//         response.send("Please log in first!")
-//     }
-// });
-
-// app.get("/favorites", (request, response) => {
-//     if (request.cookies.loggedIn === undefined) {
-//         response.send("Please log in to view your favorites")
-//     }
-//     const userID = request.cookies.userID;
-//     const values = [userID];
-//     const query = `
-//       SELECT songs.id, songs.title, songs.preview_link
-//       FROM SONGS
-//       INNER JOIN favorites
-//       on (songs.id = favorites.song_id)
-//       WHERE favorites.user_id = $1;`;
-//     pool.query(query, values, (err, result) => {
-//         const favorites = result.rows;
-//         const data = {
-//             favorites: favorites,
-//             username: request.cookies.username
-//         };
-//         response.render("Faves", data);
-//     });
-// })
-
-// app.post("/favorites", (request, response) => {
-//     const songId = request.body.song_id;
-//     const userId = request.cookies.userID;
-//     const values = [songId, userId];
-//     const query = "INSERT into favorites (song_id, user_id) VALUES ($1, $2)";
-//     pool.query(query, values, (err, result) => {
-//         if (err) console.log(err);
-//         else {
-//             response.redirect("/");
-//         }
-//     });
-// });
 
 /**
  * ===================================

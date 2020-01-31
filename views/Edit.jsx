@@ -34,7 +34,7 @@ class Edit extends React.Component {
                   </p>
                   <input
                     class="form-control"
-                    type="Date"
+                    type="date"
                     name="Date"
                     value={this.props.appointment.Date}
                   />
@@ -45,7 +45,7 @@ class Edit extends React.Component {
                   </p>
                   <input
                     class="form-control"
-                    type="Time"
+                    type="time"
                     name="Time"
                     value={this.props.appointment.Time}
                   />
