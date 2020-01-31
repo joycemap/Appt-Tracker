@@ -3,7 +3,7 @@ const Layout = require("./Layout.jsx");
 
 class Oneappt extends React.Component {
   render() {
-    console.log("creating a user page div?");
+    console.log("creating a user page");
 
     return (
       <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 cards">
@@ -13,20 +13,20 @@ class Oneappt extends React.Component {
         >
           <div class="card-body">
             <p class="card-text">
-              <strong>Name:</strong> {this.props.apptData.appt_date}
+              <strong>Date:</strong> {this.props.apptData.appt_date}
               <br />
-              <strong>Dose:</strong> {this.props.apptData.dose}{" "}
-              {this.props.apptData.dose_category}
+              <strong>Time:</strong> {this.props.apptData.Time}
               <br />
-              <strong>Next dose in:</strong> {this.props.apptData.nextTime} (
-              {this.props.timing})<br />
+              <strong>Location:</strong> {this.props.apptData.Location} <br />
+              <strong>Doctor:</strong> {this.props.apptData.Doctor} <br />
+              <strong>Notes:</strong> {this.props.apptData.Notes} <br />
             </p>
             <p>
               <a
                 class="btn btn-primary"
-                href={`/meds/single/edit/${this.props.apptData.id}`}
+                href={`/appt/single/edit/${this.props.apptData.id}`}
               >
-                Edit this entry
+                Edit this appointment
               </a>
             </p>
             <p>
@@ -34,7 +34,7 @@ class Oneappt extends React.Component {
                 class="btn btn-warning"
                 href={`/appt/single/delete/${this.props.apptData.id}`}
               >
-                Delete this entry
+                Delete this appointment
               </a>
             </p>
           </div>
@@ -46,7 +46,7 @@ class Oneappt extends React.Component {
 
 class Userpage extends React.Component {
   render() {
-    let url = "/appt/updates/" + this.props.cookieUserId + "?_method=PUT";
+    let url = "/appt/new/" + this.props.cookieUserId + "?_method=POST";
     console.log("keys length: " + Object.keys(this.props.apptData[0]).length);
     console.log("cookie user id: " + this.props.cookieUserId);
 
@@ -60,44 +60,33 @@ class Userpage extends React.Component {
           <h1>{this.props.apptData[0].name}'s Appointments</h1>
           <form method="POST" action={url}>
             <input
-              class="btn btn-outline-success"
-              id="confirmBtn"
+              class="btn btn-dark btn-lg"
               type="submit"
-              value="Action"
+              value="Add appointment"
             />
           </form>
-          <a href="/meds/new">
-            <button class="btn btn-info">Add appointment</button>
-          </a>
         </Layout>
       );
     }
 
-    console.log("inside List creation?");
+    console.log("inside appointment creation");
 
     let itemElements = this.props.apptData.map(appt => {
       return (
-    //     <Onemed mData={med} timing={med.start_time.toString()}>
-    //       {" "}
-    //     </Onemed>
-    //   );
-    // });
+        <Layout
+          cookieLogin={this.props.cookieLogin}
+          cookieUserId={this.props.cookieUserId}
+          anylogdata={this.props.anylogdata}
+        >
+          <h1>{this.props.apptData[0].name}'s Appointments</h1>
 
-    // return (
-      <Layout
-        cookieLogin={this.props.cookieLogin}
-        cookieUserId={this.props.cookieUserId}
-        anylogdata={this.props.anylogdata}
-      >
-        <h1>{this.props.apptData[0].name}'s Appointments</h1>
-       
-        <div class="item-container">{itemElements}</div>
-        <a href="/appt/new">
-          <button class="btn btn-info">Add appointment</button>
-        </a>
-
-      </Layout>
-    );
+          <div class="item-container">{itemElements}</div>
+          <a href="/appt/new">
+            <button class="btn btn-info">Add appointment</button>
+          </a>
+        </Layout>
+      );
+    });
   }
 }
 

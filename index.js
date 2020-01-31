@@ -118,9 +118,9 @@ app.get('/appt/:id', (request, response) => {
         var cookieLogin = (sha256("you are in" + request.cookies["User"] + SALT) === request.cookies["loggedin"]) ? true : false;
         var cookieUserId = request.cookies['User'];
         console.log("get cookies user id: " + cookieUserId);
-        //console.log(response.body);
+        // console.log(response.body);
 
-        const queryString = "SELECT appointment.id AS appt_date,medication.dose,medication.dose_category,medication.start_time,medication.time_interval,medication.user_id,users.name FROM appointment INNER JOIN users ON (users.id = appointment.user_id) WHERE appointment.user_id = $1 ORDER BY appointment.Date ASC";
+        const queryString = "SELECT appointment.id AS appt_date,appointment.Time,appointment.Location,appointment.Doctor,appointment.Notes,appointment.user_id,users.name FROM appointment INNER JOIN users ON (users.id = appointment.user_id) WHERE appointment.user_id = $1 ORDER BY appointment.Date ASC";
 
         const values = [parseInt(request.params.id)];
 
@@ -138,7 +138,7 @@ app.get('/appt/:id', (request, response) => {
                         if (err) {
                             console.log("query error", err.message);
                         } else {
-                            // console.log(res.rows);
+                            console.log(res.rows);
                             const data = {
                                 apptData: res.rows,
                                 cookieLogin: cookieLogin,
@@ -148,34 +148,35 @@ app.get('/appt/:id', (request, response) => {
                             response.render('Userpage', data);
                         }
                     })
-                } else {
-                    //find out how long to next pill (eg: in 2 hours)
-                    for (let i = 0; i < res.rows.length; i++) {
-                        let timeNextPill = res.rows[i].start_time;
-                        res.rows[i]['nextTime'] = moment(timeNextPill).toNow(true);
-                    }
-
-                    //find shortest time to next pill
-                    let min = res.rows[0].start_time, max = res.rows[0].start_time;
-                    for (let i = 0, len = res.rows.length; i < len; i++) {
-                        let v = res.rows[i].start_time;
-                        min = (v < min) ? v : min;
-                        max = (v > max) ? v : max;
-                    }
-
-
-                    let anylogdata = true;
-                    const data = {
-                        apptData: res.rows,
-                        cookieUserId: cookieUserId,
-                        cookieLogin: cookieLogin,
-                        anylogdata: anylogdata
-                    }
-                    response.render('Userpage', data);
                 }
+                // else {
+                // //find out how long to next pill (eg: in 2 hours)
+                // for (let i = 0; i < res.rows.length; i++) {
+                //     let timeNextPill = res.rows[i].start_time;
+                //     res.rows[i]['nextTime'] = moment(timeNextPill).toNow(true);
+                // }
+
+                // //find shortest time to next pill
+                // let min = res.rows[0].start_time, max = res.rows[0].start_time;
+                // for (let i = 0, len = res.rows.length; i < len; i++) {
+                //     let v = res.rows[i].start_time;
+                //     min = (v < min) ? v : min;
+                //     max = (v > max) ? v : max;
+                // }
+
+
+                // let anylogdata = true;
+                // const data = {
+                //     apptData: res.rows,
+                //     cookieUserId: cookieUserId,
+                //     cookieLogin: cookieLogin,
+                //     anylogdata: anylogdata
+                // }
+                // response.render('Userpage', data);
             }
-        });
-    } else {
+        })
+    }
+    else {
         response.clearCookie('User');
         response.clearCookie('loggedin');
         response.redirect('/');
