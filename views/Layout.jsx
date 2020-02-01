@@ -8,9 +8,6 @@ class Layout extends React.Component {
 
     let classdis = this.props.apptData ? "nav-link" : "nav-link disabled";
     let ariadis = this.props.apptData ? false : true;
-    let logurl = this.props.apptData
-      ? `/appt/${this.props.cookieUserId}/log`
-      : "#";
 
     return (
       <html>
@@ -43,11 +40,11 @@ class Layout extends React.Component {
                     Home <span class="sr-only">(current)</span>
                   </a>
                 </li>
-                <li class="nav-item">
+                {/* <li class="nav-item">
                   <a class={classdis} href={logurl} aria-disabled={ariadis}>
                     Appointment Log
                   </a>
-                </li>
+                </li> */}
 
                 <li class="nav-item">
                   <a class="nav-link" href={url} tabIndex="-1">

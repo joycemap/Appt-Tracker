@@ -13,13 +13,15 @@ class OneAppt extends React.Component {
         >
           <div class="card-body">
             <p class="card-text">
-              <strong>Date:</strong> {this.props.apptData.appt_date}
+              <strong>Appointment id:</strong> {this.props.apptData.id}
               <br />
-              <strong>Time:</strong> {this.props.apptData.Time}
+              <strong>Date:</strong> {this.props.apptData.date}
               <br />
-              <strong>Location:</strong> {this.props.apptData.Location} <br />
-              <strong>Doctor:</strong> {this.props.apptData.Doctor} <br />
-              <strong>Notes:</strong> {this.props.apptData.Notes} <br />
+              <strong>Time:</strong> {this.props.apptData.time}
+              <br />
+              <strong>Location:</strong> {this.props.apptData.location} <br />
+              <strong>Doctor:</strong> {this.props.apptData.doctor} <br />
+              <strong>Notes:</strong> {this.props.apptData.notes} <br />
             </p>
             <p>
               <a
@@ -55,9 +57,9 @@ class Userpage extends React.Component {
         <Layout
           cookieLogin={this.props.cookieLogin}
           cookieUserId={this.props.cookieUserId}
-          apptData={this.props.apptData}
+          apptData={this.props.apptData[0]}
         >
-          <h1>{this.props.apptData[0].name}'s Appointments</h1>
+          <h1> Your Appointments</h1>
           <form method="POST" action={url}>
             <input
               class="btn btn-dark btn-lg"
@@ -70,20 +72,18 @@ class Userpage extends React.Component {
     }
 
     console.log("inside appointment creation");
-
-    let itemElements = this.props.apptData.map(appt => {
+    console.log(apptData[0]);
+    let itemElements = this.props.appointment.map(appt => {
+      console.log(itemElements);
       return (
         <Layout
           cookieLogin={this.props.cookieLogin}
           cookieUserId={this.props.cookieUserId}
-          apptData={this.props.apptData}
+          apptData={this.props.apptData[0]}
         >
           <h1>{this.props.apptData[0].name}'s Appointments</h1>
 
           <div class="item-container">{itemElements}</div>
-          <a href="/appt/new">
-            <button class="btn btn-info">Add appointment</button>
-          </a>
         </Layout>
       );
     });

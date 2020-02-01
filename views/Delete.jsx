@@ -11,7 +11,6 @@ class Delete extends React.Component {
       <Layout
         cookieLogin={this.props.cookieLogin}
         cookieUserId={this.props.cookieUserId}
-        anylogdata={this.props.anylogdata}
       >
         <h1>Confirm delete appointment</h1>
         <form method="POST" action={url}>

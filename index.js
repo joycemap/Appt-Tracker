@@ -94,12 +94,11 @@ app.post('/appt', (request, response) => {
     ];
     pool.query(insertQueryText, values, (err, result) => {
         console.log("INSERT query callback")
-        console.log()
         if (err) {
-            console.log("ERROR", err);
+            console.log("ERROR POST NEW", err);
             response.send("error")
         } else {
-            console.log("DONE", result.rows)
+            console.log("DONE CREATE APPT", result.rows)
             response.redirect('/appt/${userId}')
         }
     });
@@ -119,25 +118,24 @@ app.get('/appt/:id', (request, response) => {
         var cookieUserId = request.cookies['User'];
         console.log("get cookies user id: " + cookieUserId);
 
-        const values = [parseInt(request.params.id)];
         const queryString = "SELECT * FROM appointment WHERE user_id = $1 ORDER BY appointment.date ASC";
-
-        pool.query(queryString, values, (err, res) => {
+        const values = [parseInt(cookieUserId)];
+        pool.query(queryString, values, (err, result) => {
             if (err) {
-                console.log("query error", err.message);
+                console.log("get view all query error", err.message);
             } else {
-                // console.log(res.rows);
-                if (res.rows[0] === undefined) {
+                console.log(result.rows);
+                if (result.rows[0] === undefined) {
                     console.log("user has no appointments: " + cookieUserId);
                     response.redirect('/appt/new');
                 } else {
-                    console.log(res.rows);
+
                     const data = {
-                        apptData: res.rows,
+                        apptData: result.rows,
                         cookieLogin: cookieLogin,
-                        cookieUserId: cookieUserId,
-                        // anylogdata: anylogdata
+                        cookieUserId: cookieUserId
                     }
+                    console.log(result.rows);
                     response.render('Userpage', data);
                 }
             }
@@ -165,7 +163,7 @@ app.get('/appt/:id/edit', (request, response) => {
         var idVal = [inputId];
         pool.query(queryString, idVal, (err, res) => {
             if (err) {
-                console.log("query error", err.message);
+                console.log("get edit query error", err.message);
             } else {
                 if (res.rows[0] === undefined) {
                     response.redirect('/appt/new');
@@ -202,7 +200,7 @@ app.put('/appt/:id', (request, response) => {
 
     pool.query(queryString, values, (err, response) => {
         if (err) {
-            console.log("query error", err.message);
+            console.log("update put query error", err.message);
         } else {
             response.redirect(`/appt/${appointment.user_id}`);
         }
@@ -225,7 +223,7 @@ app.get('/appt/delete/:id', (request, response) => {
         var idVal = [inputId];
         pool.query(queryString, idVal, (err, res) => {
             if (err) {
-                console.log("query error", err.message);
+                console.log("get delete query error", err.message);
             } else {
                 const data = {
                     appointment: res.rows[0],
@@ -254,10 +252,9 @@ app.delete('/appt/:id', (request, response) => {
     console.log(idVal);
     pool.query(queryString, idVal, (err, response) => {
         if (err) {
-            console.log("query error", err.message);
+            console.log("delete query error", err.message);
         } else {
-            //response.send('Yay! deleted!');
-            response.redirect(`/appt/${newAppt.user_id}`);
+            response.redirect(`/appt/${appointment.user_id}`);
         }
     })
 });
@@ -284,7 +281,7 @@ app.post('/users', (request, response) => {
 
     pool.query(queryString, values, (err, res) => {
         if (err) {
-            console.log("query error", err.message);
+            console.log("register query error", err.message);
         } else {
             console.log("YAY REGISTER");
             // console.log(res.rows[0] );
@@ -328,7 +325,7 @@ app.post('/users/logincheck', (request, response) => {
 
     pool.query(queryString, values, (err, res) => {
         if (err) {
-            console.log("query error", err.message);
+            console.log("logincheck query error", err.message);
 
         } else {
             if (res.rows[0] === undefined) {
