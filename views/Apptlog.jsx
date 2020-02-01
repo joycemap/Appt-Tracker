@@ -13,15 +13,15 @@ class OneAppt extends React.Component {
         >
           <div class="card-body">
             <p class="card-text">
-              <strong>Date:</strong> {this.props.logData.Date}
+              <strong>Date:</strong> {this.props.apptData.date}
               <br />
-              <strong>Time:</strong> {this.props.logData.Time}
+              <strong>Time:</strong> {this.props.apptData.time}
               <br />
-              <strong>Location:</strong> {this.props.logData.Location}
+              <strong>Location:</strong> {this.props.apptData.location}
               <br />
-              <strong>Doctor:</strong> {this.props.logData.Doctor}
+              <strong>Doctor:</strong> {this.props.apptData.doctor}
               <br />
-              <strong>Notes:</strong> {this.props.logData.Notes}
+              <strong>Notes:</strong> {this.props.apptData.notes}
               <br />
             </p>
           </div>
@@ -33,19 +33,19 @@ class OneAppt extends React.Component {
 
 class Apptlog extends React.Component {
   render() {
-    console.log(this.props.logData);
+    console.log(this.props.apptData);
 
-    let itemElements = this.props.logData.map(log => {
+    let itemElements = this.props.apptData.map(log => {
       return <Onelog logData={log}> </Onelog>;
     });
 
-    let url = "/appt/" + this.props.logData[0].user_id;
+    let url = "/appt/" + this.props.apptData[0].user_id;
 
     return (
       <Layout
         cookieLogin={this.props.cookieLogin}
         cookieUserId={this.props.cookieUserId}
-        anylogdata={this.props.anylogdata}
+        apptData={this.props.apptData}
       >
         <h1>Appointment Log</h1>
 

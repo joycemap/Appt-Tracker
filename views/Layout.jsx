@@ -6,9 +6,9 @@ class Layout extends React.Component {
     let cookieLogin = this.props.cookieLogin ? "Logout" : "Login";
     let url = this.props.cookieLogin ? "/logout" : "/";
 
-    let classdis = this.props.anylogdata ? "nav-link" : "nav-link disabled";
-    let ariadis = this.props.anylogdata ? false : true;
-    let logurl = this.props.anylogdata
+    let classdis = this.props.apptData ? "nav-link" : "nav-link disabled";
+    let ariadis = this.props.apptData ? false : true;
+    let logurl = this.props.apptData
       ? `/appt/${this.props.cookieUserId}/log`
       : "#";
 

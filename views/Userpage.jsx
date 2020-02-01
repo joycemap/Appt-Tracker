@@ -55,7 +55,7 @@ class Userpage extends React.Component {
         <Layout
           cookieLogin={this.props.cookieLogin}
           cookieUserId={this.props.cookieUserId}
-          anylogdata={this.props.anylogdata}
+          apptData={this.props.apptData}
         >
           <h1>{this.props.apptData[0].name}'s Appointments</h1>
           <form method="POST" action={url}>
@@ -76,7 +76,7 @@ class Userpage extends React.Component {
         <Layout
           cookieLogin={this.props.cookieLogin}
           cookieUserId={this.props.cookieUserId}
-          anylogdata={this.props.anylogdata}
+          apptData={this.props.apptData}
         >
           <h1>{this.props.apptData[0].name}'s Appointments</h1>
 

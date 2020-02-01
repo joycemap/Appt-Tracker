@@ -44,58 +44,58 @@ class Edit extends React.Component {
                       value={this.props.appointment.user_id}
                     />
                     <p>
-                      <strong>Date:</strong> {this.props.appointment.Date}
+                      <strong>Date:</strong> {this.props.appointment.date}
                     </p>
                     <input
                       class="form-control"
                       type="date"
-                      name="Date"
-                      value={this.props.appointment.Date}
+                      name="date"
+                      value={this.props.appointment.date}
                     />
                   </div>
                   <div>
                     <p>
-                      <strong>Time:</strong> {this.props.appointment.Time}
+                      <strong>Time:</strong> {this.props.appointment.time}
                     </p>
                     <input
                       class="form-control"
                       type="time"
-                      name="Time"
-                      value={this.props.appointment.Time}
+                      name="time"
+                      value={this.props.appointment.time}
                     />
                   </div>
                   <div>
                     <p>
                       <strong>Location:</strong>{" "}
-                      {this.props.appointment.Location}
+                      {this.props.appointment.location}
                     </p>
                     <input
                       class="form-control"
                       type="text"
-                      name="Location"
-                      value={this.props.appointment.Location}
+                      name="location"
+                      value={this.props.appointment.location}
                     />
                   </div>
                   <div>
                     <p>
-                      <strong>Doctor:</strong> {this.props.appointment.Doctor}
+                      <strong>Doctor:</strong> {this.props.appointment.doctor}
                     </p>
                     <input
                       class="form-control"
                       type="text"
-                      name="Doctor"
-                      value={this.props.appointment.Doctor}
+                      name="doctor"
+                      value={this.props.appointment.doctor}
                     />
                   </div>
                   <div>
                     <p>
-                      <strong>Notes:</strong> {this.props.appointment.Notes}
+                      <strong>Notes:</strong> {this.props.appointment.notes}
                     </p>
                     <input
                       class="form-control"
                       type="text"
-                      name="Notes"
-                      value={this.props.appointment.Notes}
+                      name="notes"
+                      value={this.props.appointment.notes}
                     />
                   </div>
                   <div class="form-group">

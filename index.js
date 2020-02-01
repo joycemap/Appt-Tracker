@@ -70,7 +70,7 @@ app.get('/appt/new', (request, response) => {
 
         const data = {
             cookieLogin: cookieLogin,
-            cookieUserId: cookieUserId,
+            cookieUserId: cookieUserId
         }
         response.render('New', data);
     } else {
@@ -82,7 +82,7 @@ app.get('/appt/new', (request, response) => {
 
 app.post('/appt', (request, response) => {
     var newAppt = request.body;
-    let userId = request.cookies['User'];
+    let userId = parseInt(request.cookies['User']);
     let insertQueryText = 'INSERT INTO appointment (Date, Time, Location, Doctor, Notes, user_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *';
     const values = [
         newAppt.date,
@@ -168,7 +168,7 @@ app.get('/appt/:id/edit', (request, response) => {
                 console.log("query error", err.message);
             } else {
                 if (res.rows[0] === undefined) {
-                    response.send("Please add an appointment first.");
+                    response.redirect('/appt/new');
                 }
                 else {
 
@@ -177,7 +177,6 @@ app.get('/appt/:id/edit', (request, response) => {
                         cookieLogin: cookieLogin,
                         cookieUserId: cookieUserId,
                     };
-                    // console.log(data);
                     response.render('Edit', data);
                 }
             }
@@ -199,7 +198,7 @@ app.put('/appt/:id', (request, response) => {
 
     let queryString = "UPDATE appointment SET Date=($1), Time=($2), Location=($3), Doctor=($4), Notes=($5) WHERE id = ($6)";
 
-    let values = [appointment.Date, appointment.Time, appointment.Location, appointment.Doctor, appointment.Notes, appointment.id];
+    let values = [appointment.Date, appointment.Time, appointment.Location, appointment.Doctor, appointment.Notes, idVal];
 
     pool.query(queryString, values, (err, response) => {
         if (err) {
