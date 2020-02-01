@@ -1,9 +1,9 @@
 var React = require("react");
 const Layout = require("./Layout.jsx");
 
-class Onelog extends React.Component {
+class OneAppt extends React.Component {
   render() {
-    console.log("creating a log?");
+    console.log("An appointment");
 
     return (
       <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 cards">

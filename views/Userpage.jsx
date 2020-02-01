@@ -1,7 +1,7 @@
 var React = require("react");
 const Layout = require("./Layout.jsx");
 
-class Oneappt extends React.Component {
+class OneAppt extends React.Component {
   render() {
     console.log("creating a user page");
 
@@ -31,7 +31,7 @@ class Oneappt extends React.Component {
             </p>
             <p>
               <a
-                class="btn btn-primary"
+                class="btn btn-warning"
                 href={`/appt/single/delete/${this.props.apptData.id}`}
               >
                 Delete this appointment
@@ -65,9 +65,6 @@ class Userpage extends React.Component {
               value="Add appointment"
             />
           </form>
-          <a href="/logout">
-            <button class="btn btn-info">Logout</button>
-          </a>
         </Layout>
       );
     }
@@ -86,9 +83,6 @@ class Userpage extends React.Component {
           <div class="item-container">{itemElements}</div>
           <a href="/appt/new">
             <button class="btn btn-info">Add appointment</button>
-          </a>
-          <a href="/logout">
-            <button class="btn btn-info">Logout</button>
           </a>
         </Layout>
       );

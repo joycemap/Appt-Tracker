@@ -67,6 +67,7 @@ app.get('/appt/new', (request, response) => {
     if (sha256("you are in" + request.cookies["User"] + SALT) === request.cookies["loggedin"]) {
         let cookieLogin = (sha256("you are in" + request.cookies["User"] + SALT) === request.cookies["loggedin"]) ? true : false;
         let cookieUserId = request.cookies['User'];
+
         const data = {
             cookieLogin: cookieLogin,
             cookieUserId: cookieUserId,
@@ -84,11 +85,11 @@ app.post('/appt', (request, response) => {
     let userId = request.cookies['User'];
     let insertQueryText = 'INSERT INTO appointment (Date, Time, Location, Doctor, Notes, user_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *';
     const values = [
-        newAppt.Date,
-        newAppt.Time,
-        newAppt.Location,
-        newAppt.Doctor,
-        newAppt.Notes,
+        newAppt.date,
+        newAppt.time,
+        newAppt.location,
+        newAppt.doctor,
+        newAppt.notes,
         userId
     ];
     pool.query(insertQueryText, values, (err, result) => {
@@ -118,28 +119,29 @@ app.get('/appt/:id', (request, response) => {
         var cookieUserId = request.cookies['User'];
         console.log("get cookies user id: " + cookieUserId);
 
-        const queryString = "SELECT appointment.id, appointment.date,appointment.time,appointment.location,appointment.doctor,appointment.notes,appointment.user_id FROM appointment INNER JOIN users ON (users.id = appointment.user_id) WHERE appointment.user_id = $1 ORDER BY appointment.date ASC";
-
         const values = [parseInt(request.params.id)];
+        const queryString = "SELECT * FROM appointment WHERE user_id = $1 ORDER BY appointment.date ASC";
+
         pool.query(queryString, values, (err, res) => {
             if (err) {
                 console.log("query error", err.message);
             } else {
                 // console.log(res.rows);
                 if (res.rows[0] === undefined) {
-                    console.log("user undefined: " + cookieUserId);
-                    response.send("There are no appointments to display.")
-
+                    console.log("user has no appointments: " + cookieUserId);
+                    response.redirect('/appt/new');
                 } else {
                     console.log(res.rows);
                     const data = {
                         apptData: res.rows,
                         cookieLogin: cookieLogin,
                         cookieUserId: cookieUserId,
+                        // anylogdata: anylogdata
                     }
                     response.render('Userpage', data);
                 }
             }
+
         })
     } else {
         response.clearCookie('User');
@@ -147,6 +149,8 @@ app.get('/appt/:id', (request, response) => {
         response.redirect('/');
     }
 });
+
+
 /**
  * ===================================
  * EDIT SPECIFIED APPOINTMENT FOR LOGGED IN USER

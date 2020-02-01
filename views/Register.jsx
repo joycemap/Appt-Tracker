@@ -1,5 +1,4 @@
 var React = require("react");
-const Layout = require("./Layout.jsx");
 
 class Register extends React.Component {
   render() {
