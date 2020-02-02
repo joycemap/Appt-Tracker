@@ -160,8 +160,8 @@ app.get('/appt/:id/edit', (request, response) => {
         let cookieUserId = request.cookies['User'];
         var inputId = parseInt(request.params.id);
         let queryString = "SELECT * FROM appointment WHERE id = ($1)";
-        var idVal = [inputId];
-        pool.query(queryString, idVal, (err, res) => {
+        var apptId = [inputId];
+        pool.query(queryString, apptId, (err, res) => {
             if (err) {
                 console.log("get edit query error", err.message);
             } else {
@@ -191,18 +191,24 @@ app.get('/appt/:id/edit', (request, response) => {
 app.put('/appt/:id', (request, response) => {
     console.log("inside individual edit put");
     var inputId = parseInt(request.params.id);
-    var idVal = [inputId];
     var newAppt = request.body;
 
     let queryString = "UPDATE appointment SET Date=($1), Time=($2), Location=($3), Doctor=($4), Notes=($5) WHERE id = ($6)";
 
-    let values = [appointment.Date, appointment.Time, appointment.Location, appointment.Doctor, appointment.Notes, idVal];
+    const values = [
+        newAppt.date,
+        newAppt.time,
+        newAppt.location,
+        newAppt.doctor,
+        newAppt.notes,
+        inputId
+    ];;
 
     pool.query(queryString, values, (err, response) => {
         if (err) {
             console.log("update put query error", err.message);
         } else {
-            response.redirect(`/appt/${appointment.user_id}`);
+            response.redirect(`/appt/${userId}`);
         }
     });
 });
@@ -219,14 +225,15 @@ app.get('/appt/delete/:id', (request, response) => {
         let cookieLogin = (sha256("you are in" + request.cookies["User"] + SALT) === request.cookies["loggedin"]) ? true : false;
         let cookieUserId = request.cookies['User'];
         var inputId = parseInt(request.params.id);
-        let queryString = "SELECT * FROM appointment WHERE id = ($1)";
         var idVal = [inputId];
+        let queryString = "SELECT * FROM appointment WHERE id = ($1)";
+
         pool.query(queryString, idVal, (err, res) => {
             if (err) {
                 console.log("get delete query error", err.message);
             } else {
                 const data = {
-                    appointment: res.rows[0],
+                    appointment: res.rows,
                     cookieLogin: cookieLogin,
                     cookieUserId: cookieUserId
                 };
@@ -243,10 +250,9 @@ app.get('/appt/delete/:id', (request, response) => {
 
 app.delete('/appt/:id', (request, response) => {
     console.log("inside app delete");
-    var newAppt = request.body;
     var inputId = parseInt(request.params.id);
     //delete appointment
-    let queryString = "DELETE FROM appointment WHERE id = ($1)";
+    let queryString = "DELETE * FROM appointment WHERE id = ($1)";
 
     var idVal = [inputId];
     console.log(idVal);
