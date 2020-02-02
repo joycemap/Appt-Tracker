@@ -1,10 +1,12 @@
 var React = require("react");
+const Layout = require("./Layout.jsx");
 
 class Edit extends React.Component {
   render() {
     console.log("in edit form");
 
-    let url = `/appt/${this.props.appointment.id}/edit?_method=PUT`;
+    let url = `/appt/edit/${this.props.apptData.id}?_method=PUT`;
+    console.log(this.props);
 
     return (
       <Layout
@@ -17,68 +19,74 @@ class Edit extends React.Component {
             <div class="col">
               <form method="POST" action={url}>
                 <div class="form-group">
+                  <p>
+                    <strong>Appointment ID</strong>
+                  </p>
                   <input
                     type="hidden"
                     name="id"
-                    value={this.props.appointment.id}
+                    value={this.props.apptData.id}
                   />
+                  <p>
+                    <strong>User ID</strong>
+                  </p>
                   <input
                     type="hidden"
                     name="user_id"
-                    value={this.props.appointment.user_id}
+                    value={this.props.apptData.user_id}
                   />
                   <p>
-                    <strong>Date:</strong> {this.props.appointment.date}
+                    {/* <strong>Date:</strong> {this.props.apptData.date} */}
                   </p>
-                  <input
+                  {/* <input
                     class="form-control"
                     type="date"
                     name="date"
-                    value={this.props.appointment.date}
-                  />
+                    value={this.props.apptData.date}
+                  /> */}
                 </div>
                 <div>
                   <p>
-                    <strong>Time:</strong> {this.props.appointment.time}
+                    <strong>Time:</strong> {this.props.apptData.time}
                   </p>
                   <input
                     class="form-control"
                     type="time"
                     name="time"
-                    value={this.props.appointment.time}
+                    value={this.props.apptData.time}
                   />
                 </div>
                 <div>
                   <p>
-                    <strong>Location:</strong> {this.props.appointment.location}
+                    <strong>Location:</strong> {this.props.apptData.location}
                   </p>
                   <input
                     class="form-control"
                     type="text"
                     name="location"
-                    value={this.props.appointment.location}
+                    value={this.props.apptData.location}
                   />
                 </div>
                 <div>
                   <p>
-                    <strong>Doctor:</strong> {this.props.appointment.doctor}
+                    <strong>Doctor:</strong> {this.props.apptData.doctor}
                   </p>
                   <input
                     class="form-control"
                     type="text"
                     name="doctor"
-                    value={this.props.appointment.doctor}
+                    value={this.props.apptData.doctor}
                   />
                 </div>
                 <div>
                   <p>
-                    <strong>Notes:</strong> {this.props.appointment.notes}
+                    <strong>Notes:</strong> {this.props.apptData.notes}
                   </p>
                   <input
                     class="form-control"
                     type="text"
                     name="notes"
-                    value={this.props.appointment.notes}
+                    value={this.props.apptData.notes}
                   />
                 </div>
                 <div class="form-group">

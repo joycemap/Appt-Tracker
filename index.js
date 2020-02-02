@@ -98,7 +98,7 @@ app.post('/appt', (request, response) => {
             console.log("ERROR POST NEW", err);
             response.send("error")
         } else {
-            console.log("DONE CREATE APPT", result.rows)
+            console.log("DONE CREATE APPT", result.rows);
             response.redirect('/appt/${userId}')
         }
     });
@@ -188,8 +188,10 @@ app.get('/appt/:id/edit', (request, response) => {
 
 //Update database with edits for a specified appointment
 
-app.put('/appt/:id', (request, response) => {
+app.put('/appt/edit/:id', (request, response) => {
     console.log("inside individual edit put");
+    let userId = parseInt(request.cookies['User']);
+
     var inputId = parseInt(request.params.id);
     var newAppt = request.body;
 
@@ -202,14 +204,18 @@ app.put('/appt/:id', (request, response) => {
         newAppt.doctor,
         newAppt.notes,
         inputId
-    ];;
+    ];
 
     pool.query(queryString, values, (err, response) => {
         if (err) {
             console.log("update put query error", err.message);
         } else {
-            response.redirect(`/appt/${userId}`);
+            // response.redirect('/appt/${userId}')
+
+            response.send("Changes Made")
         }
+
+        // }
     });
 });
 
@@ -233,7 +239,7 @@ app.get('/appt/delete/:id', (request, response) => {
                 console.log("get delete query error", err.message);
             } else {
                 const data = {
-                    appointment: res.rows,
+                    apptData: res.rows[0],
                     cookieLogin: cookieLogin,
                     cookieUserId: cookieUserId
                 };
@@ -248,11 +254,12 @@ app.get('/appt/delete/:id', (request, response) => {
 
 });
 
-app.delete('/appt/:id', (request, response) => {
+app.delete('/appt/single/:id', (request, response) => {
     console.log("inside app delete");
+    var newAppt = request.body;
     var inputId = parseInt(request.params.id);
     //delete appointment
-    let queryString = "DELETE * FROM appointment WHERE id = ($1)";
+    let queryString = "DELETE FROM appointment WHERE id = ($1)";
 
     var idVal = [inputId];
     console.log(idVal);
@@ -260,7 +267,8 @@ app.delete('/appt/:id', (request, response) => {
         if (err) {
             console.log("delete query error", err.message);
         } else {
-            response.redirect(`/appt/${appointment.user_id}`);
+            //response.send("Deleted")
+            response.redirect(`/appt/${newAppt.user_id}`);
         }
     })
 });

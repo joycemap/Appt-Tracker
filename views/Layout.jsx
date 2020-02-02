@@ -6,8 +6,8 @@ class Layout extends React.Component {
     let cookieLogin = this.props.cookieLogin ? "Logout" : "Login";
     let url = this.props.cookieLogin ? "/logout" : "/";
 
-    let classdis = this.props.apptData ? "nav-link" : "nav-link disabled";
-    let ariadis = this.props.apptData ? false : true;
+    // let classdis = this.props.apptData ? "nav-link" : "nav-link disabled";
+    // let ariadis = this.props.apptData ? false : true;
 
     return (
       <html>
@@ -40,11 +40,6 @@ class Layout extends React.Component {
                     Home <span class="sr-only">(current)</span>
                   </a>
                 </li>
-                {/* <li class="nav-item">
-                  <a class={classdis} href={logurl} aria-disabled={ariadis}>
-                    Appointment Log
-                  </a>
-                </li> */}
 
                 <li class="nav-item">
                   <a class="nav-link" href={url} tabIndex="-1">

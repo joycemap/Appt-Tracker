@@ -3,7 +3,7 @@ const Layout = require("./Layout.jsx");
 
 class OneAppt extends React.Component {
   render() {
-    console.log("creating a user page");
+    console.log("creating a data div?");
 
     return (
       <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 cards">
@@ -15,7 +15,7 @@ class OneAppt extends React.Component {
             <p class="card-text">
               <strong>Appointment id:</strong> {this.props.apptData.id}
               <br />
-              <strong>Date:</strong> {this.props.apptData.date}
+              {/* <strong>Date:</strong> {this.props.apptData.date} */}
               <br />
               <strong>Time:</strong> {this.props.apptData.time}
               <br />
@@ -26,7 +26,7 @@ class OneAppt extends React.Component {
             <p>
               <a
                 class="btn btn-primary"
-                href={`/appt/single/edit/${this.props.apptData.id}`}
+                href={`/appt/${this.props.apptData.id}/edit`}
               >
                 Edit this appointment
               </a>
@@ -34,7 +34,7 @@ class OneAppt extends React.Component {
             <p>
               <a
                 class="btn btn-warning"
-                href={`/appt/single/delete/${this.props.apptData.id}`}
+                href={`/appt/delete/${this.props.apptData.id}`}
               >
                 Delete this appointment
               </a>
@@ -59,34 +59,34 @@ class Userpage extends React.Component {
           cookieUserId={this.props.cookieUserId}
           apptData={this.props.apptData[0]}
         >
-          <h1> Your Appointments</h1>
-          <form method="POST" action={url}>
-            <input
-              class="btn btn-dark btn-lg"
-              type="submit"
-              value="Add appointment"
-            />
-          </form>
+          <div>
+            <h1> Your Appointments</h1>
+          </div>
         </Layout>
       );
     }
 
-    console.log("inside appointment creation");
-    console.log(apptData[0]);
-    let itemElements = this.props.appointment.map(appt => {
-      console.log(itemElements);
-      return (
-        <Layout
-          cookieLogin={this.props.cookieLogin}
-          cookieUserId={this.props.cookieUserId}
-          apptData={this.props.apptData[0]}
-        >
-          <h1>{this.props.apptData[0].name}'s Appointments</h1>
-
-          <div class="item-container">{itemElements}</div>
-        </Layout>
-      );
+    console.log("inside List creation?");
+    let itemElements = this.props.apptData.map(appt => {
+      return <OneAppt apptData={appt}> </OneAppt>;
     });
+    return (
+      <Layout
+        cookieLogin={this.props.cookieLogin}
+        cookieUserId={this.props.cookieUserId}
+      >
+        <br />
+        <p>
+              <a
+                class="btn btn-primary"
+                href="/appt/new"
+              >
+              Add appointment
+              </a>
+            </p>
+        <div class="item-container">{itemElements}</div>
+      </Layout>
+    );
   }
 }
 
