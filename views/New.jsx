@@ -8,7 +8,7 @@ class New extends React.Component {
         cookieUserId={this.props.cookieUserId}
         apptData={this.props.apptData}
       >
-        <h1>Create a new appointment!</h1>
+        <h1>Create a new appointment</h1>
         <div style={{ marginBottom: `10px` }}></div>
 
         <form action="/appt" method="POST">

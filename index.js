@@ -256,7 +256,6 @@ app.get('/appt/delete/:id', (request, response) => {
 
 app.delete('/appt/:id', (request, response) => {
     console.log("inside app delete");
-    // var newAppt = request.body;
     var inputId = parseInt(request.params.id);
     //delete appointment
     let queryString = "DELETE FROM appointment WHERE id = ($1)";
@@ -269,7 +268,6 @@ app.delete('/appt/:id', (request, response) => {
         if (err) {
             console.log("delete query error", err.message);
         } else {
-            //response.send("Deleted");
             response.redirect('/appt/${apptData.user_id}')
         }
     })
@@ -281,6 +279,9 @@ app.delete('/appt/:id', (request, response) => {
  * REGISTER 
  * ===================================
  */
+app.get('/register', (request, response) => {
+    response.render('Register');
+});
 
 app.post('/users', (request, response) => {
 
@@ -315,15 +316,19 @@ app.post('/users', (request, response) => {
     });
 });
 
+/**
+ * ===================================
+ * LOGOUT
+ * ===================================
+ */
+
 app.get('/logout', (request, response) => {
     response.clearCookie('loggedin');
     response.clearCookie('User');
     response.redirect('/');
 });
 
-app.get('/register', (request, response) => {
-    response.render('Register');
-});
+
 
 /**
  * ===================================
@@ -345,7 +350,7 @@ app.post('/users/logincheck', (request, response) => {
 
         } else {
             if (res.rows[0] === undefined) {
-                response.send("Incorrect username or password. Please try again.");
+                response.render('Error');
             } else {
                 console.log("YAY LOGIN CHECK");
                 // console.log(res.rows);
