@@ -6,16 +6,16 @@ class OneAppt extends React.Component {
     console.log("creating a data div?");
 
     return (
-      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 cards">
+      <div class=" col-md-6 col-lg-4 cards">
         <div
           class="output card bg-light mb-3  border-dark mb-3 shadow-sm p-3 mb-5 bg-white rounded"
-          style={{ width: 18 + "rem" }}
+          style={{ width: 36 + "rem" }}
         >
           <div class="card-body">
             <p class="card-text">
-              <strong>Appointment id:</strong> {this.props.apptData.id}
-              <br />
-              {/* <strong>Date:</strong> {this.props.apptData.date} */}
+              {/* <strong>Appointment id:</strong> {this.props.apptData.id}
+              <br /> */}
+              <strong>Date:</strong> {this.props.apptData.date.toString()}
               <br />
               <strong>Time:</strong> {this.props.apptData.time}
               <br />
@@ -28,7 +28,7 @@ class OneAppt extends React.Component {
                 class="btn btn-primary"
                 href={`/appt/${this.props.apptData.id}/edit`}
               >
-                Edit this appointment
+                Edit
               </a>
             </p>
             <p>
@@ -36,7 +36,7 @@ class OneAppt extends React.Component {
                 class="btn btn-warning"
                 href={`/appt/delete/${this.props.apptData.id}`}
               >
-                Delete this appointment
+                Delete
               </a>
             </p>
           </div>
@@ -77,13 +77,10 @@ class Userpage extends React.Component {
       >
         <br />
         <p>
-              <a
-                class="btn btn-primary"
-                href="/appt/new"
-              >
-              Add appointment
-              </a>
-            </p>
+          <a class="btn btn-primary" href="/appt/new">
+            Add appointment
+          </a>
+        </p>
         <div class="item-container">{itemElements}</div>
       </Layout>
     );

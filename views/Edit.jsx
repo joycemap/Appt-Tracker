@@ -19,31 +19,26 @@ class Edit extends React.Component {
             <div class="col">
               <form method="POST" action={url}>
                 <div class="form-group">
-                  <p>
-                    <strong>Appointment ID</strong>
-                  </p>
                   <input
                     type="hidden"
                     name="id"
                     value={this.props.apptData.id}
                   />
-                  <p>
-                    <strong>User ID</strong>
-                  </p>
+
                   <input
                     type="hidden"
                     name="user_id"
                     value={this.props.apptData.user_id}
                   />
                   <p>
-                    {/* <strong>Date:</strong> {this.props.apptData.date} */}
+                    <strong>Date:</strong> {this.props.apptData.date.toString()}
                   </p>
-                  {/* <input
+                  <input
                     class="form-control"
                     type="date"
                     name="date"
-                    value={this.props.apptData.date}
-                  /> */}
+                    value={this.props.apptData.date.toString()}
+                  />
                 </div>
                 <div>
                   <p>

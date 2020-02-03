@@ -161,17 +161,17 @@ app.get('/appt/:id/edit', (request, response) => {
         var inputId = parseInt(request.params.id);
         let queryString = "SELECT * FROM appointment WHERE id = ($1)";
         var apptId = [inputId];
-        pool.query(queryString, apptId, (err, res) => {
+        pool.query(queryString, apptId, (err, result) => {
             if (err) {
                 console.log("get edit query error", err.message);
             } else {
-                if (res.rows[0] === undefined) {
+                if (result.rows[0] === undefined) {
                     response.redirect('/appt/new');
                 }
                 else {
 
                     const data = {
-                        apptData: res.rows[0],
+                        apptData: result.rows[0],
                         cookieLogin: cookieLogin,
                         cookieUserId: cookieUserId,
                     };
@@ -204,15 +204,17 @@ app.put('/appt/edit/:id', (request, response) => {
         newAppt.doctor,
         newAppt.notes,
         inputId
+
     ];
 
-    pool.query(queryString, values, (err, response) => {
+    pool.query(queryString, values, (err, result) => {
         if (err) {
             console.log("update put query error", err.message);
         } else {
-            // response.redirect('/appt/${userId}')
 
-            response.send("Changes Made")
+            response.redirect('/appt/${apptData.user_id}')
+
+            //response.send("Changes Made")
         }
 
         // }
@@ -254,21 +256,23 @@ app.get('/appt/delete/:id', (request, response) => {
 
 });
 
-app.delete('/appt/single/:id', (request, response) => {
+app.delete('/appt/:id', (request, response) => {
     console.log("inside app delete");
-    var newAppt = request.body;
+    // var newAppt = request.body;
     var inputId = parseInt(request.params.id);
     //delete appointment
     let queryString = "DELETE FROM appointment WHERE id = ($1)";
 
-    var idVal = [inputId];
+    const idVal =
+        [inputId];
     console.log(idVal);
-    pool.query(queryString, idVal, (err, response) => {
+
+    pool.query(queryString, idVal, (err, result) => {
         if (err) {
             console.log("delete query error", err.message);
         } else {
-            //response.send("Deleted")
-            response.redirect(`/appt/${newAppt.user_id}`);
+            //response.send("Deleted");
+            response.redirect(`/appt/${apptData.user_id}`);
         }
     })
 });
