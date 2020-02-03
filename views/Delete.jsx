@@ -21,7 +21,10 @@ class Delete extends React.Component {
             value={this.props.apptData.user_id}
           />
           <p>
-            <strong>Date:</strong> {this.props.apptData.date.toString()} <br />
+            <strong>Date:</strong> {this.props.apptData.date.toString()
+                .split(" ")
+                .slice(0, 4)
+                .join(" ")} <br />
           </p>
           <p>
             <strong>Time:</strong> {this.props.apptData.time} <br />

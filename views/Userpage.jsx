@@ -15,7 +15,12 @@ class OneAppt extends React.Component {
             <p class="card-text">
               {/* <strong>Appointment id:</strong> {this.props.apptData.id}
               <br /> */}
-              <strong>Date:</strong> {this.props.apptData.date.toString()}
+              <strong>Date:</strong>{" "}
+              {this.props.apptData.date
+                .toString()
+                .split(" ")
+                .slice(0, 4)
+                .join(" ")}
               <br />
               <strong>Time:</strong> {this.props.apptData.time}
               <br />

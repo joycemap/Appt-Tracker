@@ -27,7 +27,7 @@ class Layout extends React.Component {
         <body>
           <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="/">
-              Appointment Tracker
+              <h2>Appointment Tracker</h2>
             </a>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -38,7 +38,7 @@ class Layout extends React.Component {
                   </a>
                 </li>
 
-                <li class="nav-item">
+                <li class="nav-item active">
                   <a class="nav-link" href={url} tabIndex="-1">
                     {cookieLogin}
                   </a>

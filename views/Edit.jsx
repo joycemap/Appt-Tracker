@@ -31,7 +31,10 @@ class Edit extends React.Component {
                     value={this.props.apptData.user_id}
                   />
                   <p>
-                    <strong>Date:</strong> {this.props.apptData.date.toString()}
+                    <strong>Date:</strong> {this.props.apptData.date.toString()
+                .split(" ")
+                .slice(0, 4)
+                .join(" ")}
                   </p>
                   <input
                     class="form-control"
