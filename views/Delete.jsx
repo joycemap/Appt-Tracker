@@ -40,7 +40,7 @@ class Delete extends React.Component {
           </div>
           {/* <div>
             <input class="btn btn-secondary" type="button" value="Cancel" />
-            <a href={`/appointment/${this.props.apptData.user_id}`}></a>
+            <a href={`/appt/${this.props.apptData.user_id}`}></a>
           </div> */}
         </form>
       </Layout>

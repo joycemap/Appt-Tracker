@@ -214,10 +214,8 @@ app.put('/appt/edit/:id', (request, response) => {
 
             response.redirect('/appt/${apptData.user_id}')
 
-            //response.send("Changes Made")
         }
 
-        // }
     });
 });
 
@@ -272,7 +270,7 @@ app.delete('/appt/:id', (request, response) => {
             console.log("delete query error", err.message);
         } else {
             //response.send("Deleted");
-            response.redirect(`/appt/${apptData.user_id}`);
+            response.redirect('/appt/${apptData.user_id}')
         }
     })
 });

@@ -37,7 +37,7 @@ class Edit extends React.Component {
                     class="form-control"
                     type="date"
                     name="date"
-                    value={this.props.apptData.date.toString()}
+                    value={this.props.apptData.date}
                   />
                 </div>
                 <div>
@@ -85,11 +85,7 @@ class Edit extends React.Component {
                   />
                 </div>
                 <div class="form-group">
-                  <input
-                    class="btn btn-primary"
-                    type="submit"
-                    value="Make Changes"
-                  />
+                  <input class="btn btn-primary" type="submit" value="Edit" />
                 </div>
               </form>
             </div>
