@@ -6,15 +6,13 @@ class OneAppt extends React.Component {
     console.log("creating a data div?");
 
     return (
-      <div class=" col-md-6 col-lg-4 cards">
+      <div class="cards">
         <div
-          class="output card bg-light mb-3  border-dark mb-3 shadow-sm p-3 mb-5 bg-white rounded"
-          style={{ width: 36 + "rem" }}
+          class="output card bg-light mb-3  border-dark mb-3 shadow-sm mb-5 bg-white rounded"
+          style={{ width: 80 + "rem" }}
         >
           <div class="card-body">
             <p class="card-text">
-              {/* <strong>Appointment id:</strong> {this.props.apptData.id}
-              <br /> */}
               <strong>Date:</strong>{" "}
               {this.props.apptData.date
                 .toString()
@@ -22,28 +20,27 @@ class OneAppt extends React.Component {
                 .slice(0, 4)
                 .join(" ")}
               <br />
-              <strong>Time:</strong> {this.props.apptData.time}
+              <strong>Time:</strong> {this.props.apptData.time.slice(0, -3)}
               <br />
               <strong>Location:</strong> {this.props.apptData.location} <br />
               <strong>Doctor:</strong> {this.props.apptData.doctor} <br />
               <strong>Notes:</strong> {this.props.apptData.notes} <br />
             </p>
-            <p>
+            <div>
               <a
                 class="btn btn-primary"
                 href={`/appt/${this.props.apptData.id}/edit`}
               >
                 Edit
               </a>
-            </p>
-            <p>
+              <div class="divider" />
               <a
-                class="btn btn-warning"
+                class="btn btn-danger"
                 href={`/appt/delete/${this.props.apptData.id}`}
               >
                 Delete
               </a>
-            </p>
+            </div>
           </div>
         </div>
       </div>

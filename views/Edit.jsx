@@ -14,85 +14,71 @@ class Edit extends React.Component {
         cookieUserId={this.props.cookieUserId}
       >
         <h1>Edit this appointment</h1>
-        <div class="container formwrap align-items-center justify-content-center col-6">
-          <div class="row">
-            <div class="col">
-              <form method="POST" action={url}>
-                <div class="form-group">
-                  <input
-                    type="hidden"
-                    name="id"
-                    value={this.props.apptData.id}
-                  />
-
-                  <input
-                    type="hidden"
-                    name="user_id"
-                    value={this.props.apptData.user_id}
-                  />
-                  <p>
-                    <strong>Date:</strong> {this.props.apptData.date.toString()
-                .split(" ")
-                .slice(0, 4)
-                .join(" ")}
-                  </p>
-                  <input
-                    class="form-control"
-                    type="date"
-                    name="date"
-                    value={this.props.apptData.date}
-                  />
-                </div>
-                <div>
-                  <p>
-                    <strong>Time:</strong> {this.props.apptData.time}
-                  </p>
-                  <input
-                    class="form-control"
-                    type="time"
-                    name="time"
-                    value={this.props.apptData.time}
-                  />
-                </div>
-                <div>
-                  <p>
-                    <strong>Location:</strong> {this.props.apptData.location}
-                  </p>
-                  <input
-                    class="form-control"
-                    type="text"
-                    name="location"
-                    value={this.props.apptData.location}
-                  />
-                </div>
-                <div>
-                  <p>
-                    <strong>Doctor:</strong> {this.props.apptData.doctor}
-                  </p>
-                  <input
-                    class="form-control"
-                    type="text"
-                    name="doctor"
-                    value={this.props.apptData.doctor}
-                  />
-                </div>
-                <div>
-                  <p>
-                    <strong>Notes:</strong> {this.props.apptData.notes}
-                  </p>
-                  <input
-                    class="form-control"
-                    type="text"
-                    name="notes"
-                    value={this.props.apptData.notes}
-                  />
-                </div>
-                <div class="form-group">
-                  <input class="btn btn-primary" type="submit" value="Edit" />
-                </div>
-              </form>
+        <div class="cards">
+          <form method="POST" action={url}>
+            <div class="form-group">
+              <input type="hidden" name="id" value={this.props.apptData.id} />
+              <input
+                type="hidden"
+                name="user_id"
+                value={this.props.apptData.user_id}
+              />
+              <p>
+                <strong>Date:</strong>{" "}
+                {this.props.apptData.date
+                  .toString()
+                  .split(" ")
+                  .slice(0, 4)
+                  .join(" ")}
+              </p>
+              <input
+                class="form-control"
+                type="date"
+                name="date"
+                value={this.props.apptData.date}
+              />
+              <p>
+                <strong>Time:</strong> {this.props.apptData.time.slice(0, -3)}
+              </p>
+              <input
+                class="form-control"
+                type="time"
+                name="time"
+                value={this.props.apptData.time}
+              />
+              <p>
+                <strong>Location:</strong> {this.props.apptData.location}
+              </p>
+              <input
+                class="form-control"
+                type="text"
+                name="location"
+                value={this.props.apptData.location}
+              />
+              <p>
+                <strong>Doctor:</strong> {this.props.apptData.doctor}
+              </p>
+              <input
+                class="form-control"
+                type="text"
+                name="doctor"
+                value={this.props.apptData.doctor}
+              />
+              <p>
+                <strong>Notes:</strong> {this.props.apptData.notes}
+              </p>
+              <input
+                class="form-control"
+                type="text"
+                name="notes"
+                value={this.props.apptData.notes}
+              />{" "}
+              <br></br>
+              <div class="form-group">
+                <input class="btn btn-primary" type="submit" value="Edit" />
+              </div>
             </div>
-          </div>
+          </form>
         </div>
       </Layout>
     );

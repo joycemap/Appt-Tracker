@@ -29,11 +29,7 @@ class New extends React.Component {
             <input type="text" placeholder="notes" name="notes" />
           </div>
           <div>
-            <input
-              type="submit"
-              value="Create!"
-              style={{ borderRadius: `5px`, marginRight: `10px` }}
-            />
+            <input class="btn btn-primary" type="submit" value="Create" />
           </div>
         </form>
       </Layout>
