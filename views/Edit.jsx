@@ -35,7 +35,7 @@ class Edit extends React.Component {
                 class="form-control"
                 type="date"
                 name="date"
-                min="new Date()"
+                id="datefield"
                 value={this.props.apptData.date}
               />
               <p>
@@ -85,6 +85,7 @@ class Edit extends React.Component {
             </div>
           </form>
         </div>
+        <script src="/script.js"></script>
       </Layout>
     );
   }

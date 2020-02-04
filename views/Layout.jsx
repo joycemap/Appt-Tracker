@@ -21,7 +21,6 @@ class Layout extends React.Component {
             integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
             crossOrigin="anonymous"
           />
-
           <link rel="stylesheet" href="/custom.css" />
         </head>
         <body>
@@ -47,6 +46,7 @@ class Layout extends React.Component {
             </div>
           </nav>
           {this.props.children}
+          
         </body>
       </html>
     );

@@ -6,6 +6,7 @@ class OneAppt extends React.Component {
     console.log("creating a data div?");
 
     return (
+      
       <div class="cards">
         <div
           class=" offset-lg-1 col-lg-10 output card bg-light mb-3  border-dark mb-3 shadow-sm mb-5 bg-white rounded"

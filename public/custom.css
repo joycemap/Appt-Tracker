@@ -2,7 +2,7 @@ body {
 	font-size: 150%;
 	font-family: 'Bebas Neue';
 	color: black;
-	background-color: rgb(255, 217, 0);
+	background-color:gold;
 	line-height: 2;
 	text-align: center;
 }
@@ -47,6 +47,7 @@ input[type="date"] {
 	text-align: center;
 	font-size: black;
 }
+
 
 input[type="time"] {
 	font-size: 40px;

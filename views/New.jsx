@@ -13,7 +13,7 @@ class New extends React.Component {
 
         <form action="/appt" method="POST">
           <div style={{ paddingBottom: `10px` }}>
-            <input type="date" placeholder="date" name="date" />
+            <input type="date" placeholder="date" id="datefield" name="date" />
           </div>
 
           <div style={{ paddingBottom: `10px` }}>
@@ -29,9 +29,14 @@ class New extends React.Component {
             <input type="text" placeholder="notes" name="notes" />
           </div>
           <div>
-            <input class="btn btn-dark btn-lg" type="submit" value="Create Appointment" />
+            <input
+              class="btn btn-dark btn-lg"
+              type="submit"
+              value="Create Appointment"
+            />
           </div>
         </form>
+        <script src="/script.js"></script>
       </Layout>
     );
   }
