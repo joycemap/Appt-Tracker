@@ -24,13 +24,16 @@ class Edit extends React.Component {
                 value={this.props.apptData.user_id}
               />
               <p>
-                <strong>Date:</strong>{" "}
+                <label for="date">
+                  <strong>Date:</strong>
+                </label>
                 {this.props.apptData.date
                   .toString()
                   .split(" ")
                   .slice(0, 4)
                   .join(" ")}
               </p>
+              <label for="date field"></label>
               <input
                 class="form-control"
                 type="date"
@@ -41,6 +44,7 @@ class Edit extends React.Component {
               <p>
                 <strong>Time:</strong>
               </p>
+              <label for="time field"></label>
               <input
                 class="form-control"
                 type="time"
@@ -50,6 +54,7 @@ class Edit extends React.Component {
               <p>
                 <strong>Location:</strong>
               </p>
+              <label for="location field"></label>
               <input
                 class="form-control"
                 type="text"
@@ -59,6 +64,7 @@ class Edit extends React.Component {
               <p>
                 <strong>Doctor:</strong>
               </p>
+              <label for="doctor field"></label>
               <input
                 class="form-control"
                 type="text"
@@ -68,6 +74,7 @@ class Edit extends React.Component {
               <p>
                 <strong>Notes:</strong>
               </p>
+              <label for="notes field"></label>
               <input
                 class="form-control"
                 type="text"
@@ -76,6 +83,7 @@ class Edit extends React.Component {
               />{" "}
               <br></br>
               <div class="form-group">
+                <label for="edit button"></label>
                 <input
                   class="btn btn-dark btn-lg"
                   type="submit"

@@ -21,7 +21,9 @@ class Delete extends React.Component {
             value={this.props.apptData.user_id}
           />
           <p>
-            <strong>Date:</strong>{" "}
+            <label for="date">
+              <strong>Date:</strong>
+            </label>{" "}
             {this.props.apptData.date
               .toString()
               .split(" ")
@@ -30,19 +32,31 @@ class Delete extends React.Component {
             <br />
           </p>
           <p>
-            <strong>Time:</strong> {this.props.apptData.time.slice(0, -3)}{" "}
-            <br />
+            <label for="time">
+              <strong>Time:</strong>
+            </label>{" "}
+            {this.props.apptData.time.slice(0, -3)} <br />
           </p>
           <p>
-            <strong>Location:</strong> {this.props.apptData.location} <br />
+            <label for="location">
+              <strong>Location:</strong>
+            </label>{" "}
+            {this.props.apptData.location} <br />
           </p>
           <p>
-            <strong>Doctor:</strong> {this.props.apptData.doctor} <br />
+            <label for="doctor">
+              <strong>Doctor:</strong>
+            </label>{" "}
+            {this.props.apptData.doctor} <br />
           </p>
           <p>
-            <strong>Notes:</strong> {this.props.apptData.notes} <br />
+            <label for="notes">
+              <strong>Notes:</strong>
+            </label>
+            {this.props.apptData.notes} <br />
           </p>
           <div class="form-group">
+            <label for="delete button"></label>
             <input class="btn btn-danger" type="submit" value="Delete" />
           </div>
         </form>

@@ -23,10 +23,12 @@ class Error extends React.Component {
           <div>
             <form action="/users/logincheck" method="POST">
               <p>
-                Name <input name="name" required />
+                <label for="name">Name</label>
+                <input name="name" required />
               </p>
               <p>
-                Password <input type="password" name="password" required />
+                <label for="name">Password</label>{" "}
+                <input type="password" name="password" required />
               </p>
               <div class="form-actions"></div>
               <div>

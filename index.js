@@ -116,6 +116,7 @@ app.post('/appt', (request, response) => {
         newAppt.notes,
         userId
     ];
+
     pool.query(insertQueryText, values, (err, result) => {
         console.log("INSERT query callback")
         if (err) {

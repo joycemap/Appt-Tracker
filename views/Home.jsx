@@ -19,14 +19,14 @@ class Home extends React.Component {
         </head>
         <body>
           <div>
-            <h1>Appointment Tracker</h1>
-            <h2>Log in to see your appointments</h2>
+            <h1>Appointment Tracker Log In</h1>
             <form action="/users/logincheck" method="POST">
               <p>
-                Name <input name="name" required />
+                <label for="name">Name</label><input name="name" required />
               </p>
               <p>
-                Password <input type="password" name="password" required />
+                <label for="name">Password</label>{" "}
+                <input type="password" name="password" required />
               </p>
               <div class="form-actions"></div>
               <div>
