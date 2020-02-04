@@ -8,7 +8,7 @@ class OneAppt extends React.Component {
     return (
       <div class="cards">
         <div
-          class="output card bg-light mb-3  border-dark mb-3 shadow-sm mb-5 bg-white rounded"
+          class=" offset-lg-1 col-lg-10 output card bg-light mb-3  border-dark mb-3 shadow-sm mb-5 bg-white rounded"
           style={{ width: 80 + "rem" }}
         >
           <div class="card-body">
@@ -28,17 +28,17 @@ class OneAppt extends React.Component {
             </p>
             <div>
               <a
-                class="btn btn-primary"
+                class="btn btn btn-dark btn-lg"
                 href={`/appt/${this.props.apptData.id}/edit`}
               >
-                Edit
+                Edit Appointment
               </a>
               <div class="divider" />
               <a
-                class="btn btn-danger"
+                class="btn btn-danger btn-lg"
                 href={`/appt/delete/${this.props.apptData.id}`}
               >
-                Delete
+                Delete Appointment
               </a>
             </div>
           </div>
@@ -60,11 +60,7 @@ class Userpage extends React.Component {
           cookieLogin={this.props.cookieLogin}
           cookieUserId={this.props.cookieUserId}
           apptData={this.props.apptData[0]}
-        >
-          <div>
-            <h1> Your Appointments</h1>
-          </div>
-        </Layout>
+        ></Layout>
       );
     }
 

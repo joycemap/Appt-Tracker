@@ -29,7 +29,7 @@ class New extends React.Component {
             <input type="text" placeholder="notes" name="notes" />
           </div>
           <div>
-            <input class="btn btn-primary" type="submit" value="Create" />
+            <input class="btn btn-dark btn-lg" type="submit" value="Create Appointment" />
           </div>
         </form>
       </Layout>
