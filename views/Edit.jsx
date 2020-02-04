@@ -16,7 +16,7 @@ class Edit extends React.Component {
         <h1>Edit this appointment</h1>
         <div class="cards">
           <form method="POST" action={url}>
-            <div class="form-group">
+            <div class="form-group offset-lg-2 col-lg-8">
               <input type="hidden" name="id" value={this.props.apptData.id} />
               <input
                 type="hidden"

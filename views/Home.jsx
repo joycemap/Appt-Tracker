@@ -20,7 +20,7 @@ class Home extends React.Component {
         <body>
           <div>
             <h1>Appointment Tracker</h1>
-            <h2>Log in to see appointments</h2>
+            <h2>Log in to see your appointments</h2>
             <form action="/users/logincheck" method="POST">
               <p>
                 Name <input name="name" required />
