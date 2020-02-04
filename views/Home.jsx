@@ -22,7 +22,7 @@ class Home extends React.Component {
             <h1>Appointment Tracker Log In</h1>
             <form action="/users/logincheck" method="POST">
               <p>
-                <label for="name">Name</label><input name="name" required />
+                <label for="name">Name</label>{" "}<input name="name" required />
               </p>
               <p>
                 <label for="name">Password</label>{" "}

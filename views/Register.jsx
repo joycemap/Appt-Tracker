@@ -22,10 +22,10 @@ class Register extends React.Component {
         </head>
         <body>
           <div>
-            <h1>Register for Appointment Tracker Here</h1>
+            <h1>Register for Appointment Tracker</h1>
             <form action="/users" method="POST">
               <p>
-              <label for="name">Name</label><input name="name" required />
+              <label for="name">Name</label>{" "}<input name="name" required />
               </p>
               <p>
               <label for="name">Password</label>{" "}
@@ -33,7 +33,7 @@ class Register extends React.Component {
               </p>
               <div>
               <label for="register button"></label><input
-                  className="btn btn-dark btn-lg btn-block"
+                  className="btn btn-danger btn-lg btn-block"
                   type="submit"
                   value="Register"
                 />

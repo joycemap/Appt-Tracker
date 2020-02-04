@@ -30,7 +30,7 @@ class New extends React.Component {
           </div>
           <div>
             <input
-              class="btn btn-dark btn-lg"
+              class="btn btn-danger btn-lg"
               type="submit"
               value="Create Appointment"
             />

@@ -27,7 +27,7 @@ class Edit extends React.Component {
                 <label for="date">
                   <strong>Date:</strong>
                 </label>
-                {this.props.apptData.date
+                {" "}{this.props.apptData.date
                   .toString()
                   .split(" ")
                   .slice(0, 4)
@@ -85,7 +85,7 @@ class Edit extends React.Component {
               <div class="form-group">
                 <label for="edit button"></label>
                 <input
-                  class="btn btn-dark btn-lg"
+                  class="btn btn-danger btn-lg"
                   type="submit"
                   value="Edit appointment"
                 />

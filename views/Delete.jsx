@@ -52,12 +52,12 @@ class Delete extends React.Component {
           <p>
             <label for="notes">
               <strong>Notes:</strong>
-            </label>
+            </label>{" "}
             {this.props.apptData.notes} <br />
           </p>
           <div class="form-group">
             <label for="delete button"></label>
-            <input class="btn btn-danger" type="submit" value="Delete" />
+            <input class="btn btn-danger" type="submit" value="Delete Appointment" />
           </div>
         </form>
       </Layout>

@@ -21,11 +21,11 @@ class OneAppt extends React.Component {
                 .slice(0, 4)
                 .join(" ")}
               <br />
-              <strong>Time:</strong> {this.props.apptData.time.slice(0, -3)}
+              <strong>Time:</strong>{" "} {this.props.apptData.time.slice(0, -3)}
               <br />
-              <strong>Location:</strong> {this.props.apptData.location} <br />
-              <strong>Doctor:</strong> {this.props.apptData.doctor} <br />
-              <strong>Notes:</strong> {this.props.apptData.notes} <br />
+              <strong>Location:</strong>{" "} {this.props.apptData.location} <br />
+              <strong>Doctor:</strong>{" "} {this.props.apptData.doctor} <br />
+              <strong>Notes:</strong>{" "} {this.props.apptData.notes} <br />
             </p>
             <div>
               <a
@@ -76,7 +76,7 @@ class Userpage extends React.Component {
       >
         <br />
         <p>
-          <a class="btn btn-primary" href="/appt/new">
+          <a class="btn btn-dark" href="/appt/new">
             Add appointment
           </a>
         </p>
