@@ -20,6 +20,31 @@ class Error extends React.Component {
         </head>
         <body>
           <h1>Incorrect username or password. Please try again.</h1>
+          <div>
+            <form action="/users/logincheck" method="POST">
+              <p>
+                Name <input name="name" required />
+              </p>
+              <p>
+                Password <input type="password" name="password" required />
+              </p>
+              <div class="form-actions"></div>
+              <div>
+                <input
+                  className="btn btn-dark btn-lg btn-block"
+                  type="submit"
+                  value="Click Here to log in"
+                />
+                <a
+                  class="btn btn-danger btn-lg btn-block"
+                  href="/register"
+                  role="button"
+                >
+                  New User? Click here to register
+                </a>
+              </div>
+            </form>
+          </div>
           <script
             src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
