@@ -6,7 +6,6 @@ class OneAppt extends React.Component {
     console.log("creating a data div?");
 
     return (
-      
       <div class="cards">
         <div
           class=" offset-lg-1 col-lg-10 output card bg-light mb-3  border-dark mb-3 shadow-sm mb-5 bg-white rounded"
@@ -21,11 +20,11 @@ class OneAppt extends React.Component {
                 .slice(0, 4)
                 .join(" ")}
               <br />
-              <strong>Time:</strong>{" "} {this.props.apptData.time.slice(0, -3)}
+              <strong>Time:</strong> {this.props.apptData.time.slice(0, -3)}
               <br />
-              <strong>Location:</strong>{" "} {this.props.apptData.location} <br />
-              <strong>Doctor:</strong>{" "} {this.props.apptData.doctor} <br />
-              <strong>Notes:</strong>{" "} {this.props.apptData.notes} <br />
+              <strong>Location:</strong> {this.props.apptData.location} <br />
+              <strong>Doctor:</strong> {this.props.apptData.doctor} <br />
+              <strong>Notes:</strong> {this.props.apptData.notes} <br />
             </p>
             <div>
               <a
@@ -76,7 +75,7 @@ class Userpage extends React.Component {
       >
         <br />
         <p>
-          <a class="btn btn-dark" href="/appt/new">
+          <a class="btn btn-danger" href="/appt/new">
             Add appointment
           </a>
         </p>
