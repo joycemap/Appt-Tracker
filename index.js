@@ -5,15 +5,36 @@ const pg = require('pg');
 const cookieParser = require('cookie-parser');
 const SALT = "banana";
 const sha256 = require('js-sha256');
+const url = require('url');
 
 
-// Initialise postgres client
-const configs = {
-    user: 'joyce',
-    host: '127.0.0.1',
-    database: 'apptdb',
-    port: 5432,
-};
+//check to see if we have this heroku environment variable
+if (process.env.DATABASE_URL) {
+    //we need to take apart the url so we can set the appropriate configs
+
+    const params = url.parse(process.env.DATABASE_URL);
+    const auth = params.auth.split(':');
+
+    //make the configs object
+    var configs = {
+        user: auth[0],
+        password: auth[1],
+        host: params.hostname,
+        port: params.port,
+        database: params.pathname.split('/')[1],
+        ssl: true
+    };
+
+} else {
+
+    //otherwise we are on the local network
+    var configs = {
+        user: 'joyce',
+        host: '127.0.0.1',
+        database: 'apptdb',
+        port: 5432,
+    };
+}
 const pool = new pg.Pool(configs);
 pool.on('error', function (err) {
     console.log('idle client error', err.message, err.stack);
@@ -199,8 +220,8 @@ app.put('/appt/edit/:id', (request, response) => {
     var newAppt = request.body;
 
     let queryString = "UPDATE appointment SET Date=($1), Time=($2), Location=($3), Doctor=($4), Notes=($5) WHERE id = ($6)";
-    
-        const values = [
+
+    const values = [
         newAppt.date,
         newAppt.time,
         newAppt.location,
@@ -380,7 +401,9 @@ app.post('/users/logincheck', (request, response) => {
  * Listen to requests on port 3000
  * ===================================
  */
-const server = app.listen(3000, () => console.log('~~~ Tuning in to the waves of port 3000 ~~~'));
+const PORT = process.env.PORT || 3000;
+
+const server = app.listen(PORT, () => console.log('~~~ Tuning in to the waves of port '+PORT+' ~~~'));
 let onClose = function () {
     console.log("closing");
     server.close(() => {
