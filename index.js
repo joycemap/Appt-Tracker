@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const SALT = "banana";
 const sha256 = require('js-sha256');
 
+
 // Initialise postgres client
 const configs = {
     user: 'joyce',
@@ -36,6 +37,8 @@ const reactEngine = require('express-react-views').createEngine();
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jsx');
 app.engine('jsx', reactEngine);
+
+
 
 /**
  * ===================================
@@ -196,8 +199,8 @@ app.put('/appt/edit/:id', (request, response) => {
     var newAppt = request.body;
 
     let queryString = "UPDATE appointment SET Date=($1), Time=($2), Location=($3), Doctor=($4), Notes=($5) WHERE id = ($6)";
-
-    const values = [
+    
+        const values = [
         newAppt.date,
         newAppt.time,
         newAppt.location,
